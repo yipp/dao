@@ -1,8 +1,9 @@
 package org.baize.dao.sqlmapper;
 
-import org.baize.dao.PlayerModel;
+import org.baize.dao.manager.PersistPlayerMapper;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -12,11 +13,11 @@ import java.util.Map;
  */
 @Service
 public interface PlayerMapper{
-    PlayerModel selectOneForId(Integer id);
-    String selectOneForAccount(Map<String,String> map);
-    String selectAll();
-    void insert(PlayerModel model);
-    void update(PlayerModel model);
+    PersistPlayerMapper selectOneForId(Integer id);
+    PersistPlayerMapper selectOneForAccount(String account);
+    List<PersistPlayerMapper> selectAll();
+    void insert(PersistPlayerMapper mapper);
+    void update(PersistPlayerMapper mapper);
     void delete(Integer id);
     void update();
     void updateField(Map<String,String> map);

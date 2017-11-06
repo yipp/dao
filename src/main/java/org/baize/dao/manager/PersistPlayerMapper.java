@@ -18,12 +18,12 @@ public class PersistPlayerMapper {
     public PersistPlayerMapper() {
     }
 
-    public PersistPlayerMapper(PersistPlayer persistPlayer){
-        this.id = persistPlayer.getId();
-        this.account = persistPlayer.getPlayerInfo().getAccount();
-        this.playerInfo = JSON.toJSONString(persistPlayer.getPlayerInfo());
-        this.weath = JSON.toJSONString(persistPlayer.getWeath());
-        this.shop = JSON.toJSONString(persistPlayer.getShop());
+    public PersistPlayerMapper(PlayerEntity entity){
+        this.id = entity.getId();
+        this.account = entity.getPlayerInfo().getAccount();
+        this.playerInfo = JSON.toJSONString(entity.getPlayerInfo());
+        this.weath = JSON.toJSONString(entity.getWeath());
+        this.shop = JSON.toJSONString(entity.getShop());
     }
     public int getId() {
         return id;
@@ -67,11 +67,8 @@ public class PersistPlayerMapper {
 
 
 
-    public PersistPlayer persistPlayer(){
-        PlayerInfo info = JSON.parseObject(this.playerInfo,PlayerInfo.class);
-        Shop shop = JSON.parseObject(this.shop,Shop.class);
-        Weath weath = JSON.parseObject(this.weath,Weath.class);
-        return new PersistPlayer(id,info,weath,shop);
+    public PlayerEntity playerEntity(){
+        return new PlayerEntity(this);
     }
 
     public Persist persist(Persist p){
@@ -80,6 +77,7 @@ public class PersistPlayerMapper {
         if(StringUtils.isEmpty(str))
             return null;
         persist = JSON.parseObject(str,p.getClass());
+        persist.setId(id);
         return persist;
     }
     public String persistStr(Persist p){

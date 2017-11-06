@@ -1,7 +1,5 @@
 package org.baize;
 
-import org.apache.ibatis.session.SqlSession;
-import org.baize.dao.PlayerModel;
 import org.baize.dao.model.Shop;
 import org.baize.dao.sqlmapper.PlayerMapper;
 import org.springframework.context.ApplicationContext;
@@ -36,7 +34,7 @@ public class App
         Shop shop = new Shop();
         shop.setId(3);
         shop.setName("Hello World!");
-        shop.update(mapper);
+        shop.update();
 
     }
 }

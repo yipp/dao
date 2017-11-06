@@ -1,6 +1,7 @@
 package org.baize.dao.model;
 
 import com.alibaba.fastjson.JSON;
+import org.apache.commons.lang3.StringUtils;
 import org.baize.dao.sqlmapper.PlayerMapper;
 
 import java.util.HashMap;
@@ -13,25 +14,21 @@ import java.util.Map;
  */
 public abstract class Persist {
     private transient int id;
-    //private PlayerMapper mapper;
-
-    public Persist() {
-        //mapper = springutils.getbean(playermapper.class)
-    }
-
+    private PlayerMapper mapper;
     public int getId() {
         return id;
     }
-
     public void setId(int id) {
         this.id = id;
     }
-    public void update(PlayerMapper mapper){
-        if(this == null)
-            return;
-        if(!(this instanceof Persist))
-            return;
+    public void update(){
+        //提交消息队列，线程调用submit方法
+    }
+    private void submit(){
+        //mapper = springutils.getbean(playermapper.class)
         String str = JSON.toJSONString(this);
+        if(this == null || !(this instanceof Persist) || StringUtils.isEmpty(str))
+            return;
         String sql = "'"+str+"'";
         Map<String,String> map = new HashMap<>();
         map.put("k",this.getClass().getSimpleName());
