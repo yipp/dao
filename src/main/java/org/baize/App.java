@@ -2,6 +2,7 @@ package org.baize;
 
 import org.apache.ibatis.session.SqlSession;
 import org.baize.dao.PlayerModel;
+import org.baize.dao.model.Shop;
 import org.baize.dao.sqlmapper.PlayerMapper;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -23,13 +24,19 @@ public class App
 //        model.setAge("10");
 //        model.setName("asdasdas");
 //        mapper.addUser(model);
-        String sql = "select * from player where id = 1";
-        System.out.println(mapper.selectUser(1));
+       // String sql = "select * from player where id = 1";
+        System.out.println(mapper.selectOneForId(1));
         Map<String,String> map = new HashMap<>();
         map.put("name","age");
         map.put("tablename","player");
         map.put("id","1");
-        System.out.println(mapper.selectUserForAccount(map));
+        System.out.println(mapper.selectOneForAccount(map));
         System.out.println( "Hello World!" );
+
+        Shop shop = new Shop();
+        shop.setId(3);
+        shop.setName("Hello World!");
+        shop.update(mapper);
+
     }
 }

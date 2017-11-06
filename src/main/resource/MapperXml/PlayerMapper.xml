@@ -4,23 +4,27 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <!-- namespace:命名空间（包名） -->
 <mapper namespace="org.baize.dao.sqlmapper.PlayerMapper">
-    <select id="selectUser" resultType="org.baize.dao.PlayerModel">
+    <select id="selectOneForId" resultType="org.baize.dao.PlayerModel">
         select * from player where id = #{id}
     </select>
     <select id="selectAll" resultType="java.lang.String">
         select * from player
     </select>
-    <insert id="addUser" parameterType="org.baize.dao.PlayerModel" useGeneratedKeys="true">
+    <insert id="insert" parameterType="org.baize.dao.PlayerModel" useGeneratedKeys="true">
         insert into player(id,name,age) values(#{id},#{name},#{age})
     </insert>
-    <update id="updateUser" parameterType="org.baize.dao.PlayerModel">
+    <update id="update" parameterType="org.baize.dao.PlayerModel">
         update coreplayer set account=#{account},playerInfo=#{playerInfo},wealth=#{wealth} where id=#{id}
     </update>
-    <delete id="deleteUser">
+    <delete id="delete">
         delete from coreplayer where id=#{id}
     </delete>
     <!--动态传入表名，列名，条件等参数。注：这种方式没有做防注入处理-->
-    <select id="selectUserForAccount" resultType="java.lang.String" parameterType="java.util.Map" statementType="STATEMENT">
+    <select id="selectOneForAccount" resultType="java.lang.String" parameterType="java.util.Map" statementType="STATEMENT">
         select ${name} from ${tablename} where id = ${id}
     </select>
+    <!--更新字段-->
+    <update id="updateField" parameterType="java.util.Map" statementType="STATEMENT">
+       update player set ${k} = ${v} where id = ${id}
+    </update>
 </mapper>

@@ -12,10 +12,12 @@ import java.util.Map;
  */
 @Service
 public interface PlayerMapper{
-    PlayerModel selectUser(Integer id);
-    String selectUserForAccount(Map<String,String> map);
+    PlayerModel selectOneForId(Integer id);
+    String selectOneForAccount(Map<String,String> map);
     String selectAll();
-    void addUser(PlayerModel model);
-    void updateUser(PlayerModel model);
-    void deleteUser(Integer id);
+    void insert(PlayerModel model);
+    void update(PlayerModel model);
+    void delete(Integer id);
+    void update();
+    void updateField(Map<String,String> map);
 }
