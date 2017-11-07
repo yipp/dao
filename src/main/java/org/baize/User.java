@@ -52,8 +52,8 @@ public class User {
         System.out.println(clazz == String.class);
 
         modify(user,"name","asd");
-        modify(user,"id",10);
-        modify(user,"age",5.0F);
+        modify(user,"id","456");
+        modify(user,"age","4867");
         System.out.println(user);
     }
 
@@ -63,14 +63,22 @@ public class User {
      * @param fieldName
      * @param newValue
      */
-    private static void modify(Object o, String fieldName, Object newValue){
+    private static void modify(Object o, String fieldName, String newValue){
         try {
             Field field = o.getClass().getDeclaredField(fieldName);
             Field modifiersField = Field.class.getDeclaredField("modifiers");
             modifiersField.setAccessible(true);
             modifiersField.setInt(field, field.getModifiers() & ~Modifier.FINAL);
-
-            field.set(o,newValue);
+            Class<?> clazz = field.getType();
+            Object value = null;
+            if(clazz == int.class) {
+                value = Integer.valueOf(newValue);
+            }
+            else if(clazz == float.class)
+                value = Float.valueOf(newValue);
+            else if(clazz == String.class)
+                value = newValue;
+            field.set(o,value);
         } catch (Exception e) {
             e.printStackTrace();
         }
